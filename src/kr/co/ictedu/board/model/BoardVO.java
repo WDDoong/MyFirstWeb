@@ -3,68 +3,74 @@ package kr.co.ictedu.board.model;
 import java.sql.Timestamp;
 
 public class BoardVO {
-	private int bid;
-	private String bname;
-	private String btitle;
-	private String bcontent;
-	private Timestamp bdate;
-	private int bhit;
+	private int bId;
+	private String bName;
+	private String bTitle;
+	private String bContent;
+	// Timestamp는 시분초 까지 표기, Date는 년월일만 표기합니다.
+	private Timestamp bDate;
+	private int bHit;
+	// 생성자, setter/getter, toString 생성시
+	// Alt + Shift + S 혹은 우클릭해서 자동생성하세요.
 	
+	// 아무것도 받지 않는 생성자
 	public BoardVO() {
 		
 	}
-
-	public BoardVO(int bid, String bname, String btitle, String bcontent, Timestamp bdate, int bhit) {
+	// 모든 요소를 다 받는 생성자
+	public BoardVO(int bId, String bName, String bTitle, String bContent, Timestamp bDate, int bHit) {
 		super();
-		this.bid = bid;
-		this.bname = bname;
-		this.btitle = btitle;
-		this.bcontent = bcontent;
-		this.bdate = bdate;
-		this.bhit = bhit;
+		this.bId = bId;
+		this.bName = bName;
+		this.bTitle = bTitle;
+		this.bContent = bContent;
+		this.bDate = bDate;
+		this.bHit = bHit;
 	}
 
-	public int getBid() {
-		return bid;
+	// Generate Getters/Setters 탭 선택 후 자동생성
+	public int getbId() {
+		return bId;
 	}
-	public void setBid(int bid) {
-		this.bid = bid;
+	public void setbId(int bId) {
+		this.bId = bId;
 	}
-	public String getBname() {
-		return btitle;
+	public String getbName() {
+		return bName;
 	}
-	public void setBname(String bname) {
-		this.bname = bname;
+	public void setbName(String bName) {
+		this.bName = bName;
 	}
-	public String getBtitle() {
-		return btitle;
+	public String getbTitle() {
+		return bTitle;
 	}
-	public void setBtitle(String btitle) {
-		this.btitle = btitle;
+	public void setbTitle(String bTitle) {
+		this.bTitle = bTitle;
 	}
-	public String getBcontent() {
-		return bcontent;
+	public String getbContent() {
+		return bContent;
 	}
-	public void setBcontent(String bcontent) {
-		this.bcontent = bcontent;
+	public void setbContent(String bContent) {
+		this.bContent = bContent;
 	}
-	public Timestamp getBdate() {
-		return bdate;
+	public Timestamp getbDate() {
+		return bDate;
 	}
-	public void setBdate(Timestamp bdate) {
-		this.bdate = bdate;
+	public void setbDate(Timestamp bDate) {
+		this.bDate = bDate;
 	}
-	public int getBhit() {
-		return bhit;
+	public int getbHit() {
+		return bHit;
 	}
-	public void setBhit(int bhit) {
-		this.bhit = bhit;
+	public void setbHit(int bHit) {
+		this.bHit = bHit;
 	}
-
+	
+	// Generate toString 탭 선택
 	@Override
 	public String toString() {
-		return "BoardVO [bid=" + bid + ", bname=" + bname + ", btitle=" + btitle + ", bcontent=" + bcontent + ", bdate=" + bdate + ", bhit="
-				+ bhit + "]";
+		return "BoardVO [bId=" + bId + ", bName=" + bName + ", bTitle=" + bTitle + ", bContent=" + bContent + ", bDate="
+				+ bDate + ", bHit=" + bHit + "]";
 	}
 
 	
