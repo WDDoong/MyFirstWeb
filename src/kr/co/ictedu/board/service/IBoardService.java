@@ -9,5 +9,5 @@ import javax.servlet.http.HttpServletResponse;
 public interface IBoardService {
 
 	//서비스 인터페이스 내에는 실행 메서드 하나만 만듭니다.
-	void excute(HttpServletRequest request, HttpServletResponse response);
+	void execute(HttpServletRequest request, HttpServletResponse response);
 }

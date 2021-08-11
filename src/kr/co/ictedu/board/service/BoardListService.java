@@ -11,7 +11,7 @@ import kr.co.ictedu.board.model.BoardVO;
 public class BoardListService implements IBoardService {
 
 	@Override
-	public void excute(HttpServletRequest request, HttpServletResponse response) {
+	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		// 접속하자마자 바로 전체 데이터만 들고오면 됨
 		// 바로 DAO부터 생성함.
 		BoardDAO dao = BoardDAO.getInstance();

@@ -3,6 +3,7 @@ package kr.co.ictedu.board.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,12 @@ import javax.sql.DataSource;
 
 
 
+
 public class BoardDAO {
+	
+	private static final int SUCCESS = 1;
+	private static final int FAIL = 0;
+	
 	// 싱글턴 패턴과 커넥션 풀을 적용해서
 	// DAO의 연결부 (생성자, getInstance())까지 작성해주세요.
 	
@@ -181,7 +187,77 @@ public class BoardDAO {
 	
 	
 	
+	public int deleteBoard(String bId) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		// DELETE 쿼리문 작성
+		String sql = "DELETE FROM jspboard WHERE bid=?";
+			//DB연결 로직	
+			try{
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, bId);
+				
+				// 쿼리문 실행
+				pstmt.executeUpdate();
+				// 결과 코드 리턴
+				return SUCCESS;
+				
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally{
+			//연결 끊기
+			try{
+				if(con!=null && !con.isClosed()){
+					con.close();
+				}if(pstmt!=null && !pstmt.isClosed()){
+					pstmt.close();
+				}
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
+		}
+		return FAIL;
+	}// END deleteBoard
 	
+	
+	
+	public int updateBoard(BoardVO board) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = "UPDATE jspboard SET btitle=?, bcontent=?, bname=?, bdate=?, bhit=? WHERE bid=?";
+	
+		try {
+			con = ds.getConnection();
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, board.getbTitle());
+			pstmt.setString(2, board.getbContent());
+			pstmt.setString(3, board.getbName());
+			pstmt.setTimestamp(4, board.getbDate());
+			pstmt.setInt(5, board.getbHit());
+			pstmt.setInt(6, board.getbId());
+			
+			pstmt.executeUpdate();
+			
+			return SUCCESS;
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(con != null && !con.isClosed()) {
+					con.close();
+				}
+				if(pstmt != null && !pstmt.isClosed()) {
+					pstmt.close();
+				}
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return FAIL;
+	}// END updateBoard
 	
 	
 	

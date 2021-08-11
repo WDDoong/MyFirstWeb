@@ -11,7 +11,7 @@ public class BoardWriteService implements IBoardService {
 
 
 	@Override
-	public void excute(HttpServletRequest request, HttpServletResponse response) {
+	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		// getParameter로 폼에서 쏜 데이터를 들고오게 해주세요.
 	try {	
 		request.setCharacterEncoding("UTF-8");

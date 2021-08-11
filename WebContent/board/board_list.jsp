@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>게시물 목록</title>
 </head>
 <body>
 
@@ -33,8 +33,10 @@
 				<td>${board.bHit}</td>
 			</tr>
 			</c:forEach>
+			
 		</tbody>
 	</table>
-
+		<a href="/MyFirstWeb/board/board_write_form.jsp"><input type="submit" value="글쓰기"></a>
+		
 </body>
 </html>

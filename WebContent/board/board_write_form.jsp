@@ -30,13 +30,7 @@
 				<input type="submit" value="초기화">
 			</td>
 		</tr>
-		<tr>
-			
-		</tr>
-</table>
-	
-	
-	
+	</table>
 	</form>
 
 </body>
