@@ -2,8 +2,10 @@ package kr.co.ictedu.board.service;
 
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.co.ictedu.board.model.BoardDAO;
 import kr.co.ictedu.board.model.BoardVO;
@@ -12,6 +14,22 @@ public class BoardListService implements IBoardService {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession Session = null;
+		Session = request.getSession();
+		String idSession = (String)Session.getAttribute("idSession");
+		
+		if(idSession == null) {
+			try {
+				// 서비스 내부에서 포워딩을 시키면
+				// 리다이렉트가 아니기때문에 실행됨.
+				String ui = "/users/user_login_form.jsp";
+				RequestDispatcher dp = request.getRequestDispatcher(ui);
+				dp.forward(request, response);
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 		// 접속하자마자 바로 전체 데이터만 들고오면 됨
 		// 바로 DAO부터 생성함.
 		BoardDAO dao = BoardDAO.getInstance();

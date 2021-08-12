@@ -27,7 +27,7 @@
 		<tr>
 			<td>
 				<input type="submit" value="글쓰기">
-				<input type="submit" value="초기화">
+				<input type="reset" value="초기화">
 			</td>
 		</tr>
 	</table>

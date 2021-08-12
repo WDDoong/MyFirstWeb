@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.co.ictedu.board.service.BoardDeleteService;
 import kr.co.ictedu.board.service.BoardDetailService;
@@ -17,6 +18,10 @@ import kr.co.ictedu.board.service.BoardListService;
 import kr.co.ictedu.board.service.BoardUpdateService;
 import kr.co.ictedu.board.service.BoardWriteService;
 import kr.co.ictedu.board.service.IBoardService;
+import kr.co.ictedu.user.service.IUserService;
+import kr.co.ictedu.user.service.UserJoinService;
+import kr.co.ictedu.user.service.UserLoginService;
+import kr.co.ictedu.user.service.UserLogoutService;
 
 /**
  * Servlet implementation class patternServlet
@@ -61,7 +66,6 @@ public class patternServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doRequest(request, response);
 	}
 
@@ -72,6 +76,11 @@ public class patternServlet extends HttpServlet {
 		// 서비스 호출을 위해 모든 서비스 자료형을 받을 수 있는
 		// 인터페이스를 생성합니다.
 		IBoardService sv = null;
+		IUserService usv = null;
+		
+		// 세션 쓰는법
+		HttpSession Session = null;
+		Session = request.getSession();
 		
 		//해당 로직을 실행한 뒤에 넘어갈 .jsp 파일 명칭/경로 지정
 		String ui = null;
@@ -91,11 +100,35 @@ public class patternServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		if(uri.equals("/MyFirstWeb/join.do")) {
+			usv= new UserJoinService();
+			usv.execute(request, response);
+			ui = "/users/user_login_form.jsp";
+			
 			System.out.println("회원가입 요청 확인");
+			
 		}else if(uri.equals("/MyFirstWeb/login.do")) {
-			System.out.println("로그인 요청 확인");
+			usv = new UserLoginService();
+			usv.execute(request, response);
+			// 세션에서 로그인 확인
+			String result =(String)Session.getAttribute("login");
+			
+			if(result != null && result.equals("fail")) {
+				Session.invalidate();
+				ui = "/users/user_login_form.jsp";
+			}else {
+				ui = "/boardselect.do";
+			}
+		
+			
 		}else if(uri.equals("/MyFirstWeb/userupdate.do")) {
 			System.out.println("수정 요청 확인");
+			
+		}else if(uri.equals("/MyFirstWeb/userlogout.do")) {
+			usv = new UserLogoutService();
+			usv.execute(request, response);
+			ui = "/users/user_login_form.jsp";
+			System.out.println("로그아웃 요청 확인");
+			
 		}else if(uri.equals("/MyFirstWeb/userdelete.do")) {
 			System.out.println("탈퇴 요청 확인");
 		
